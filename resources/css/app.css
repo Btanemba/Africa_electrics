@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Your custom styles here */
+
+.top-header {
+    background: #f5f5f5;
+}
+
+.navbar {
+    background: #7a726d;
+}
