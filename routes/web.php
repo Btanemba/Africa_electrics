@@ -8,6 +8,18 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/projects', function () {
+    return view('projects.index');
+})->name('projects.index');
+
+Route::get('/company/team', function () {
+    return view('company.team');
+})->name('team');
+
+Route::get('/company/jobs', function () {
+    return view('company.jobs');
+})->name('jobs');
+
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/category/{category}', [ProductController::class, 'byCategory'])->name('products.category');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');

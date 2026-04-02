@@ -170,6 +170,8 @@
 
     @include('sections.why-choose-us')
 
+    @include('sections.projects')
+
     {{-- @include('layouts.footer') --}}
 </body>
 </html>
