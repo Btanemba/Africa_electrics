@@ -5,6 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Products - {{ config('app.name', 'Africa Electrics') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        .products-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .products-sidebar {
+            width: 100%;
+        }
+        .products-grid-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 768px) {
+            .products-layout {
+                flex-direction: row;
+            }
+            .products-sidebar {
+                width: 256px;
+                flex-shrink: 0;
+            }
+        }
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: box-shadow 0.2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
 </head>
 <body class="font-sans antialiased bg-gray-50">
     @include('layouts.navigation')
@@ -17,9 +68,9 @@
             {{ isset($category) ? ($category->description ?? 'Browse products in this category') : 'Browse our range of electrical products and solutions' }}
         </p>
 
-        <div class="flex flex-col md:flex-row gap-8">
+        <div class="products-layout">
             <!-- Sidebar: Categories -->
-            <aside class="w-full md:w-64 shrink-0">
+            <aside class="products-sidebar">
                 <div class="bg-white rounded-lg shadow p-4">
                     <h2 class="text-lg font-semibold text-gray-700 mb-3">Categories</h2>
                     <ul class="space-y-1">
@@ -42,11 +93,11 @@
             </aside>
 
             <!-- Products Grid -->
-            <div class="flex-1">
+            <div class="products-grid-wrapper">
                 @if($products->count())
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="products-grid">
                         @foreach($products as $product)
-                            <a href="{{ route('products.show', $product->slug) }}" class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden group">
+                            <a href="{{ route('products.show', $product->slug) }}" class="product-card">
                                 <div class="product-carousel" style="position:relative; background:#e5e7eb; overflow:hidden;">
                                     @if($product->images->count())
                                         @foreach($product->images as $i => $image)
