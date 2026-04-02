@@ -65,13 +65,17 @@
                             <a href="{{ route('products.show', $product->slug) }}" class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden group">
                                 <div class="h-48 bg-gray-200 overflow-hidden relative" x-data="{ current: 0, total: {{ $product->images->count() }} }">
                                     @if($product->images->count())
-                                        @foreach($product->images as $i => $image)
-                                            <img x-show="current === {{ $i }}"
-                                                 src="{{ asset('storage/' . $image->image_path) }}"
+                                        @if($product->images->count() === 1)
+                                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
                                                  alt="{{ $product->name }}"
-                                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0">
-                                        @endforeach
-                                        @if($product->images->count() > 1)
+                                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                        @else
+                                            @foreach($product->images as $i => $image)
+                                                <img x-show="current === {{ $i }}"
+                                                     src="{{ asset('storage/' . $image->image_path) }}"
+                                                     alt="{{ $product->name }}"
+                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0">
+                                            @endforeach
                                             <button @click.prevent="current = current > 0 ? current - 1 : total - 1"
                                                     class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm z-10">
                                                 &#8249;
