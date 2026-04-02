@@ -10,8 +10,7 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::has('products')->get();
-        $products = Product::where('status', '!=', 0)
-            ->with(['category', 'images'])
+        $products = Product::with(['category', 'images'])
             ->latest()
             ->paginate(12);
 
