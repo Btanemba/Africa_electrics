@@ -47,32 +47,32 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($products as $product)
                             <a href="{{ route('products.show', $product->slug) }}" class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden group">
-                                <div class="product-carousel h-48 bg-gray-200 overflow-hidden relative">
+                                <div class="product-carousel" style="position:relative; background:#e5e7eb; overflow:hidden;">
                                     @if($product->images->count())
                                         @foreach($product->images as $i => $image)
                                             <img src="{{ asset('storage/' . $image->image_path) }}"
                                                  alt="{{ $product->name }}"
-                                                 class="product-slide w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0"
-                                                 style="{{ $i !== 0 ? 'display:none;' : '' }}">
+                                                 class="product-slide"
+                                                 style="width:100%; height:192px; object-fit:cover;{{ $i !== 0 ? ' display:none;' : '' }}">
                                         @endforeach
                                         @if($product->images->count() > 1)
                                             <button type="button" onclick="event.preventDefault(); slideCarousel(this, -1)"
-                                                    class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm z-10">
+                                                    style="position:absolute; left:4px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer; z-index:10; font-size:14px;">
                                                 &#8249;
                                             </button>
                                             <button type="button" onclick="event.preventDefault(); slideCarousel(this, 1)"
-                                                    class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm z-10">
+                                                    style="position:absolute; right:4px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer; z-index:10; font-size:14px;">
                                                 &#8250;
                                             </button>
-                                            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+                                            <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:10;">
                                                 @foreach($product->images as $i => $image)
-                                                    <span class="carousel-dot w-1.5 h-1.5 rounded-full {{ $i === 0 ? 'bg-white' : 'bg-white/50' }}"></span>
+                                                    <span class="carousel-dot" style="width:6px; height:6px; border-radius:50%; background:{{ $i === 0 ? '#fff' : 'rgba(255,255,255,0.5)' }};"></span>
                                                 @endforeach
                                             </div>
                                         @endif
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div style="width:100%; height:192px; display:flex; align-items:center; justify-content:center; color:#9ca3af;">
+                                            <svg style="width:64px; height:64px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                             </svg>
                                         </div>
@@ -132,9 +132,9 @@
             slides[next].style.display = '';
 
             for (var j = 0; j < dots.length; j++) {
-                dots[j].className = dots[j].className.replace('bg-white', 'bg-white/50');
+                dots[j].style.background = 'rgba(255,255,255,0.5)';
             }
-            dots[next].className = dots[next].className.replace('bg-white/50', 'bg-white');
+            dots[next].style.background = '#fff';
         }
     </script>
 </body>
