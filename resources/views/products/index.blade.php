@@ -43,50 +43,30 @@
 
             <!-- Products Grid -->
             <div class="flex-1">
-                {{-- Debug: remove this after fixing --}}
-                <script>
-                    console.log('=== PRODUCT DEBUG ===');
-                    console.log('Total products: {{ $products->count() }}');
-                    @foreach($products as $product)
-                        console.log('Product: {{ $product->name }}', 'Images count: {{ $product->images->count() }}');
-                        @foreach($product->images as $image)
-                            console.log('Image path: {{ $image->image_path }}');
-                            console.log('Full URL: {{ asset("storage/" . $image->image_path) }}');
-                            fetch('{{ asset("storage/" . $image->image_path) }}', { method: 'HEAD' })
-                                .then(r => console.log('Image status:', r.status, r.ok ? 'OK' : 'NOT FOUND', '{{ asset("storage/" . $image->image_path) }}'))
-                                .catch(e => console.error('Image fetch failed:', e));
-                        @endforeach
-                    @endforeach
-                </script>
-
                 @if($products->count())
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($products as $product)
                             <a href="{{ route('products.show', $product->slug) }}" class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden group">
-                                <div class="h-48 bg-gray-200 overflow-hidden relative" x-data="{ current: 0, total: {{ $product->images->count() }} }">
+                                <div class="product-carousel h-48 bg-gray-200 overflow-hidden relative">
                                     @if($product->images->count())
-                                        @if($product->images->count() === 1)
-                                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
+                                        @foreach($product->images as $i => $image)
+                                            <img src="{{ asset('storage/' . $image->image_path) }}"
                                                  alt="{{ $product->name }}"
-                                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                                        @else
-                                            @foreach($product->images as $i => $image)
-                                                <img x-show="current === {{ $i }}"
-                                                     src="{{ asset('storage/' . $image->image_path) }}"
-                                                     alt="{{ $product->name }}"
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0">
-                                            @endforeach
-                                            <button @click.prevent="current = current > 0 ? current - 1 : total - 1"
+                                                 class="product-slide w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0"
+                                                 style="{{ $i !== 0 ? 'display:none;' : '' }}">
+                                        @endforeach
+                                        @if($product->images->count() > 1)
+                                            <button type="button" onclick="event.preventDefault(); slideCarousel(this, -1)"
                                                     class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm z-10">
                                                 &#8249;
                                             </button>
-                                            <button @click.prevent="current = current < total - 1 ? current + 1 : 0"
+                                            <button type="button" onclick="event.preventDefault(); slideCarousel(this, 1)"
                                                     class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm z-10">
                                                 &#8250;
                                             </button>
                                             <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
                                                 @foreach($product->images as $i => $image)
-                                                    <span :class="current === {{ $i }} ? 'bg-white' : 'bg-white/50'" class="w-1.5 h-1.5 rounded-full"></span>
+                                                    <span class="carousel-dot w-1.5 h-1.5 rounded-full {{ $i === 0 ? 'bg-white' : 'bg-white/50' }}"></span>
                                                 @endforeach
                                             </div>
                                         @endif
@@ -128,5 +108,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function slideCarousel(btn, direction) {
+            var carousel = btn.closest('.product-carousel');
+            var slides = carousel.querySelectorAll('.product-slide');
+            var dots = carousel.querySelectorAll('.carousel-dot');
+            var total = slides.length;
+            var current = -1;
+
+            for (var i = 0; i < slides.length; i++) {
+                if (slides[i].style.display !== 'none') {
+                    current = i;
+                    break;
+                }
+            }
+
+            var next = current + direction;
+            if (next < 0) next = total - 1;
+            if (next >= total) next = 0;
+
+            slides[current].style.display = 'none';
+            slides[next].style.display = '';
+
+            for (var j = 0; j < dots.length; j++) {
+                dots[j].className = dots[j].className.replace('bg-white', 'bg-white/50');
+            }
+            dots[next].className = dots[next].className.replace('bg-white/50', 'bg-white');
+        }
+    </script>
 </body>
 </html>
