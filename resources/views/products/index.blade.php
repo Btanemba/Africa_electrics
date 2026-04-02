@@ -43,6 +43,22 @@
 
             <!-- Products Grid -->
             <div class="flex-1">
+                {{-- Debug: remove this after fixing --}}
+                <script>
+                    console.log('=== PRODUCT DEBUG ===');
+                    console.log('Total products: {{ $products->count() }}');
+                    @foreach($products as $product)
+                        console.log('Product: {{ $product->name }}', 'Images count: {{ $product->images->count() }}');
+                        @foreach($product->images as $image)
+                            console.log('Image path: {{ $image->image_path }}');
+                            console.log('Full URL: {{ asset("storage/" . $image->image_path) }}');
+                            fetch('{{ asset("storage/" . $image->image_path) }}', { method: 'HEAD' })
+                                .then(r => console.log('Image status:', r.status, r.ok ? 'OK' : 'NOT FOUND', '{{ asset("storage/" . $image->image_path) }}'))
+                                .catch(e => console.error('Image fetch failed:', e));
+                        @endforeach
+                    @endforeach
+                </script>
+
                 @if($products->count())
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($products as $product)
