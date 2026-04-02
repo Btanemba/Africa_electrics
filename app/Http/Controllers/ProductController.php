@@ -10,7 +10,7 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::has('products')->get();
-        $products = Product::where('status', 1)
+        $products = Product::where('status', '!=', 0)
             ->with(['category', 'images'])
             ->latest()
             ->paginate(12);
@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         $categories = Category::has('products')->get();
         $products = $category->products()
-            ->where('status', 1)
+            ->where('status', '!=', 0)
             ->with('images')
             ->latest()
             ->paginate(12);
@@ -35,7 +35,7 @@ class ProductController extends Controller
         $product->load(['category', 'images']);
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
-            ->where('status', 1)
+            ->where('status', '!=', 0)
             ->with('images')
             ->take(4)
             ->get();
