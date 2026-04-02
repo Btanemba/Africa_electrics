@@ -19,6 +19,8 @@ Route::group([
     Route::crud('category', 'CategoryCrudController');
     Route::crud('product', 'ProductCrudController');
     Route::get('product/{productId}/delete-image/{imageId}', 'ProductCrudController@deleteImage');
+    Route::crud('job-listing', 'JobListingCrudController');
+    Route::crud('job-application', 'JobApplicationCrudController');
 }); // this should be the absolute last line of this file
 
 /**

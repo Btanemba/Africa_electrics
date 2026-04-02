@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,9 @@ Route::get('/company/team', function () {
     return view('company.team');
 })->name('team');
 
-Route::get('/company/jobs', function () {
-    return view('company.jobs');
-})->name('jobs');
+Route::get('/company/jobs', [JobController::class, 'index'])->name('jobs');
+Route::get('/company/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
+Route::post('/company/jobs/{job}/apply', [JobController::class, 'apply'])->name('jobs.apply');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/category/{category}', [ProductController::class, 'byCategory'])->name('products.category');
