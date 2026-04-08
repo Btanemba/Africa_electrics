@@ -38,36 +38,26 @@
             </div>
 
             <div class="team-grid">
-                <div class="team-card">
-                    <img src="{{ asset('images/Founder.PNG') }}" alt="Founder & CEO" class="team-avatar">
-                    <div class="team-card-body">
-                        <h3>Edwin S</h3>
-                        <div class="role">Founder & CEO</div>
-                        <p>Leading Africa Electric's vision for sustainable energy solutions across the continent.</p>
+                @forelse ($teamMembers as $member)
+                    <div class="team-card">
+                        @if ($member->photo_url)
+                            <img src="{{ $member->photo_url }}" alt="{{ $member->name }}" class="team-avatar">
+                        @else
+                            <div class="team-placeholder">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            </div>
+                        @endif
+                        <div class="team-card-body">
+                            <h3>{{ $member->name }}</h3>
+                            <div class="role">{{ $member->role }}</div>
+                            @if ($member->bio)
+                                <p>{{ $member->bio }}</p>
+                            @endif
+                        </div>
                     </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    </div>
-                    <div class="team-card-body">
-                        <h3>Team Member</h3>
-                        <div class="role">Operations Manager</div>
-                        <p>Overseeing project delivery and ensuring quality standards on every installation.</p>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    </div>
-                    <div class="team-card-body">
-                        <h3>Team Member</h3>
-                        <div class="role">Lead Engineer</div>
-                        <p>Designing and implementing electrical systems with precision and safety.</p>
-                    </div>
-                </div>
+                @empty
+                    <p style="text-align:center; color:#6b7280; grid-column: 1/-1;">No team members to display yet.</p>
+                @endforelse
             </div>
         </div>
     </section>

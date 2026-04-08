@@ -14,7 +14,10 @@ Route::get('/projects', function () {
 })->name('projects.index');
 
 Route::get('/company/team', function () {
-    return view('company.team');
+    $teamMembers = \App\Models\TeamMember::where('is_active', true)
+        ->orderBy('sort_order')
+        ->get();
+    return view('company.team', compact('teamMembers'));
 })->name('team');
 
 Route::get('/company/jobs', [JobController::class, 'index'])->name('jobs');
