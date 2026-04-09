@@ -28,6 +28,15 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/category/{category}', [ProductController::class, 'byCategory'])->name('products.category');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
+// Override Backpack register routes with custom controller
+Route::group([
+    'middleware' => config('backpack.base.web_middleware', 'web'),
+    'prefix' => config('backpack.base.route_prefix'),
+], function () {
+    Route::get('register', [\App\Http\Controllers\Admin\Auth\RegisterController::class, 'showRegistrationForm'])->name('backpack.auth.register');
+    Route::post('register', [\App\Http\Controllers\Admin\Auth\RegisterController::class, 'register']);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

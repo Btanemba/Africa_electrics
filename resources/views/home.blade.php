@@ -90,7 +90,7 @@
         </div>
 
         <div class="hero-slide">
-            <img src="{{ asset('images/Industrial2.PNG') }}" alt="Industrial Electrical Solutions">
+            <img src="{{ asset('images/africa.PNG') }}" alt="Industrial Electrical Solutions">
             <div class="hero-overlay">
                 <h1>Industrial Electrical Solutions</h1>
                 <p>Built for performance, safety, and durability.</p>
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="{{ asset('images/Sola2.PNG') }}" alt="About Africa Electric" class="about-img">
+                    <img src="{{ asset('images/africa.PNG') }}" alt="About Africa Electric" class="about-img">
                 </div>
             </div>
         </div>
