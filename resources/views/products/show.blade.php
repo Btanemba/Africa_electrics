@@ -83,10 +83,25 @@
                     @endif
 
                     <div class="mt-6">
-                        <a href="mailto:comingsoon@africaelectrics.com?subject=Order Inquiry: {{ urlencode($product->name) }}"
-                           class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold px-8 py-3 rounded-lg transition">
-                            Inquire to Order
-                        </a>
+                        @if($product->stock_quantity > 0)
+                            <form action="{{ route('cart.add', $product->slug) }}" method="POST" class="flex items-center gap-3">
+                                @csrf
+                                <label class="text-sm font-medium text-gray-700">Qty:</label>
+                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock_quantity }}"
+                                       class="w-20 border border-gray-300 rounded-lg px-3 py-2 text-center focus:outline-none focus:ring-2 focus:ring-gray-400">
+                                <button type="submit"
+                                        class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg transition">
+                                    Add to Cart
+                                </button>
+                            </form>
+                            @if(session('success'))
+                                <p class="text-green-600 text-sm mt-2">{{ session('success') }}</p>
+                            @endif
+                        @else
+                            <button disabled class="inline-block bg-gray-300 text-gray-500 font-semibold px-8 py-3 rounded-lg cursor-not-allowed">
+                                Out of Stock
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>

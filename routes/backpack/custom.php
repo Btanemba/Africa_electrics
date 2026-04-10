@@ -25,6 +25,13 @@ Route::group([
     Route::crud('user', 'UserCrudController');
     Route::crud('role', 'RoleCrudController');
     Route::crud('role-user', 'RoleUserCrudController');
+    Route::crud('order', 'OrderCrudController');
+    Route::crud('delivery', 'DeliveryCrudController');
+
+    // Custom driver delivery interface
+    Route::get('driver', 'DriverController@index')->name('driver.index');
+    Route::get('driver/{order}', 'DriverController@show')->name('driver.show');
+    Route::patch('driver/{order}/status', 'DriverController@updateStatus')->name('driver.updateStatus');
 }); // this should be the absolute last line of this file
 
 /**

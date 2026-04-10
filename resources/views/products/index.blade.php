@@ -97,7 +97,8 @@
                 @if($products->count())
                     <div class="products-grid">
                         @foreach($products as $product)
-                            <a href="{{ route('products.show', $product->slug) }}" class="product-card">
+                            <div class="product-card">
+                                <a href="{{ route('products.show', $product->slug) }}" style="text-decoration:none; color:inherit; display:block;">
                                 <div class="product-carousel" style="position:relative; background:#e5e7eb; overflow:hidden;">
                                     @if($product->images->count())
                                         @foreach($product->images as $i => $image)
@@ -133,7 +134,7 @@
                                     <p class="text-xs text-gray-400 mb-1">{{ $product->category->name ?? '' }}</p>
                                     <h3 class="text-lg font-semibold text-gray-800 mb-1">{{ $product->name }}</h3>
                                     @if($product->description)
-                                        <p class="text-sm text-gray-500 mb-2 line-clamp-2">{{ $product->description }}</p>
+                                        <p class="text-sm text-gray-500 mb-2" style="display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">{{ $product->description }}</p>
                                     @endif
                                     @if($product->price)
                                         <p class="text-gray-600 font-bold">${{ number_format($product->price, 2) }}</p>
@@ -144,7 +145,20 @@
                                         <p class="text-red-500 text-xs mt-1">Out of Stock</p>
                                     @endif
                                 </div>
-                            </a>
+                                </a>
+                                @if($product->stock_quantity > 0)
+                                    <div class="px-4 pb-4">
+                                        <form action="{{ route('cart.add', $product->slug) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit"
+                                                    class="w-full bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg transition">
+                                                Add to Cart
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
+                            </div>
                         @endforeach
                     </div>
 

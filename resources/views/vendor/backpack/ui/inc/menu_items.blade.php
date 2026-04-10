@@ -1,10 +1,24 @@
 {{-- This file is used for menu items by any Backpack v7 theme --}}
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
-@if(backpack_user()->hasRoleCode('ADM'))
+@if(backpack_user()->hasRoleCode('ADM') || backpack_user()->hasRoleCode('MS'))
     <x-backpack::menu-item title="Categories" icon="la la-tags" :link="backpack_url('category')" />
 
     <x-backpack::menu-item title="Products" icon="la la-box" :link="backpack_url('product')" />
+
+    @php $pendingCount = \App\Models\Order::where('status', 'pending')->count(); @endphp
+    <li class="nav-item">
+        <a class="nav-link" href="{{ backpack_url('order') }}">
+            <i class="nav-icon la la-shopping-cart"></i> Orders
+            @if($pendingCount > 0)
+                <span class="badge bg-danger ms-auto">{{ $pendingCount }} new</span>
+            @endif
+        </a>
+    </li>
+@endif
+
+@if(backpack_user()->hasRoleCode('DRV') || backpack_user()->hasRoleCode('ADM'))
+    <x-backpack::menu-item title="My Deliveries" icon="la la-truck" :link="url('admin/driver')" />
 @endif
 
 @if(backpack_user()->hasRoleCode('ADM') || backpack_user()->hasRoleCode('HR'))

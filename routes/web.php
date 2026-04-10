@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +30,21 @@ Route::post('/company/jobs/{job}/apply', [JobController::class, 'apply'])->name(
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/category/{category}', [ProductController::class, 'byCategory'])->name('products.category');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// Cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
+
+// Checkout
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/order/confirmation/{orderNumber}', [CheckoutController::class, 'confirmation'])->name('order.confirmation');
+
+// Order Tracking
+Route::get('/track-order', [OrderTrackingController::class, 'index'])->name('track-order');
+Route::post('/track-order', [OrderTrackingController::class, 'track'])->name('track-order.search');
 
 // Override Backpack register routes with custom controller
 Route::group([
