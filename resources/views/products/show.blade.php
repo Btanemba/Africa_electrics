@@ -111,10 +111,10 @@
         @if($relatedProducts->count())
             <div class="mt-12">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Related Products</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
                     @foreach($relatedProducts as $related)
                         <a href="{{ route('products.show', $related->slug) }}" class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden group">
-                            <div class="h-40 bg-gray-200 overflow-hidden">
+                            <div class="h-24 sm:h-32 lg:h-40 bg-gray-200 overflow-hidden">
                                 @if($related->images->count())
                                     <img src="{{ asset('storage/' . $related->images->first()->image_path) }}"
                                          alt="{{ $related->name }}"

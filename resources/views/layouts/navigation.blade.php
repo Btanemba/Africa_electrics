@@ -26,7 +26,7 @@
         <!-- Contact Info + Social (desktop only) -->
         <div class="hidden md:flex items-center space-x-6 text-sm text-gray-600">
             <span>Telephone:+231886720189</span>
-            <span>Email: comingsoon@africaelectrics.com</span>
+            <span>Email: info@africaelectric.com</span>
             {{-- <span class="font-bold">DE | <span class="text-red-600">EN</span></span> --}}
             <div class="flex items-center space-x-3">
                 <a href="https://www.facebook.com/africaelectric" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-blue-600 transition">
@@ -74,10 +74,10 @@
                         @endforeach
                     </ul>
                 </li>
-                <li class="cursor-pointer hover:text-gray-200 transition">Switchboard construction</li>
+
                 <li class="cursor-pointer hover:text-gray-200 transition flex items-center gap-1">Development electronics <span class="text-xs">▼</span></li>
                 <li class="cursor-pointer hover:text-gray-200 transition">Research and development</li>
-                <li class="cursor-pointer hover:text-gray-200 transition">Downloads</li>
+                {{-- <li class="cursor-pointer hover:text-gray-200 transition">Downloads</li> --}}
                 <li>
                     <a href="{{ route('track-order') }}" class="hover:text-gray-200 transition flex items-center gap-1">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,12 +98,22 @@
                 </li>
             </ul>
 
-            <!-- Mobile Hamburger Button -->
-            <button @click="open = !open" class="md:hidden text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+            <!-- Mobile Hamburger Button & Cart -->
+            <div class="md:hidden flex items-center justify-between w-full">
+                <button @click="open = !open" class="text-white hover:text-gray-200 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <a href="{{ route('cart.index') }}" class="relative text-white hover:text-gray-200 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+                    </svg>
+                    @if(count(session('cart', [])) > 0)
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ count(session('cart', [])) }}</span>
+                    @endif
+                </a>
+            </div>
         </div>
 
         <!-- Mobile Menu -->
