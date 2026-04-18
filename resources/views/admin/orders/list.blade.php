@@ -88,19 +88,7 @@
                                 <i class="la la-edit"></i> Update
                             </a>
 
-                            <!-- Delete (Admin Only) -->
-                            @if(backpack_auth()->check() && backpack_auth()->user()->hasRoleCode('ADM'))
-                                <form method="POST"
-                                      action="{{ url($crud->route.'/'.$entry->id) }}"
-                                      onsubmit="return confirm('Delete this order?')">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="la la-trash"></i> Delete
-                                    </button>
-                                </form>
-                            @endif
+                            
 
                         </div>
 
