@@ -21,31 +21,39 @@ class TeamMemberCrudController extends CrudController
         CRUD::setEntityNameStrings('team member', 'team members');
     }
 
-    protected function setupListOperation()
-    {
-        CRUD::column('name');
-        CRUD::column('role');
-        CRUD::addColumn([
-            'name'   => 'photo',
-            'label'  => 'Photo',
-            'type'   => 'closure',
-            'function' => function ($entry) {
-                if ($entry->photo) {
-                    return '<img src="' . asset('storage/' . $entry->photo) . '" style="height:50px;width:50px;object-fit:cover;border-radius:4px;">';
-                }
-                return '-';
-            },
-            'escaped' => false,
-        ]);
-        CRUD::column('sort_order');
-        CRUD::addColumn([
-            'name'  => 'is_active',
-            'label' => 'Active',
-            'type'  => 'boolean',
-        ]);
+    // protected function setupListOperation()
+    // {
+    //     CRUD::column('name');
+    //     CRUD::column('role');
+    //     CRUD::addColumn([
+    //         'name'   => 'photo',
+    //         'label'  => 'Photo',
+    //         'type'   => 'closure',
+    //         'function' => function ($entry) {
+    //             if ($entry->photo) {
+    //                 return '<img src="' . asset('storage/' . $entry->photo) . '" style="height:50px;width:50px;object-fit:cover;border-radius:4px;">';
+    //             }
+    //             return '-';
+    //         },
+    //         'escaped' => false,
+    //     ]);
+    //     CRUD::column('sort_order');
+    //     CRUD::addColumn([
+    //         'name'  => 'is_active',
+    //         'label' => 'Active',
+    //         'type'  => 'boolean',
+    //     ]);
 
-        CRUD::orderBy('sort_order', 'ASC');
-    }
+    //     CRUD::orderBy('sort_order', 'ASC');
+    // }
+
+    protected function setupListOperation()
+{
+    $this->crud->setListView('admin.team_members.list');
+
+    $this->crud->query
+        ->orderBy('sort_order', 'ASC');
+}
 
     protected function setupCreateOperation()
     {

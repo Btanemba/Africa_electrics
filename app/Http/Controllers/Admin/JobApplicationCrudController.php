@@ -21,38 +21,47 @@ class JobApplicationCrudController extends CrudController
         CRUD::setEntityNameStrings('job application', 'job applications');
     }
 
+    // protected function setupListOperation()
+    // {
+    //     CRUD::column([
+    //         'name' => 'job_listing_id',
+    //         'label' => 'Job',
+    //         'type' => 'select',
+    //         'entity' => 'jobListing',
+    //         'attribute' => 'title',
+    //         'model' => \App\Models\JobListing::class,
+    //     ]);
+    //     CRUD::column('full_name');
+    //     CRUD::column('email');
+    //     CRUD::column('phone');
+    //     CRUD::column([
+    //         'name' => 'status',
+    //         'type' => 'text',
+    //         'label' => 'Status',
+    //         'wrapper' => [
+    //             'element' => 'span',
+    //             'class' => function ($crud, $column, $entry) {
+    //                 return match ($entry->status) {
+    //                     'pending' => 'badge bg-warning',
+    //                     'reviewed' => 'badge bg-info',
+    //                     'shortlisted' => 'badge bg-success',
+    //                     'rejected' => 'badge bg-danger',
+    //                     default => 'badge bg-secondary',
+    //                 };
+    //             },
+    //         ],
+    //     ]);
+    //     CRUD::column('created_at')->label('Applied At');
+    // }
+
     protected function setupListOperation()
-    {
-        CRUD::column([
-            'name' => 'job_listing_id',
-            'label' => 'Job',
-            'type' => 'select',
-            'entity' => 'jobListing',
-            'attribute' => 'title',
-            'model' => \App\Models\JobListing::class,
-        ]);
-        CRUD::column('full_name');
-        CRUD::column('email');
-        CRUD::column('phone');
-        CRUD::column([
-            'name' => 'status',
-            'type' => 'text',
-            'label' => 'Status',
-            'wrapper' => [
-                'element' => 'span',
-                'class' => function ($crud, $column, $entry) {
-                    return match ($entry->status) {
-                        'pending' => 'badge bg-warning',
-                        'reviewed' => 'badge bg-info',
-                        'shortlisted' => 'badge bg-success',
-                        'rejected' => 'badge bg-danger',
-                        default => 'badge bg-secondary',
-                    };
-                },
-            ],
-        ]);
-        CRUD::column('created_at')->label('Applied At');
-    }
+{
+    $this->crud->setListView('admin.job_applications.list');
+
+    $this->crud->query
+        ->with(['jobListing'])
+        ->orderBy('created_at', 'desc');
+}
 
     protected function setupShowOperation()
     {

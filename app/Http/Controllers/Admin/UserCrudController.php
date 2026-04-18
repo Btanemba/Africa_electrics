@@ -36,16 +36,34 @@ class UserCrudController extends CrudController
      *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
-     */
+    //  */
+    // protected function setupListOperation()
+    // {
+    //     CRUD::column('first_name');
+    //     CRUD::column('last_name');
+    //     CRUD::column('email');
+    //     CRUD::column('address');
+    //     CRUD::column('post_code');
+    //     CRUD::column('phone_number');
+    // }
+
     protected function setupListOperation()
-    {
-        CRUD::column('first_name');
-        CRUD::column('last_name');
-        CRUD::column('email');
-        CRUD::column('address');
-        CRUD::column('post_code');
-        CRUD::column('phone_number');
+{
+    $this->crud->setListView('admin.users.list');
+
+    $query = $this->crud->query;
+
+    // Search
+    if ($search = request('search')) {
+        $query->where(function ($q) use ($search) {
+            $q->where('first_name', 'like', "%$search%")
+              ->orWhere('last_name', 'like', "%$search%")
+              ->orWhere('email', 'like', "%$search%");
+        });
     }
+
+    $query->orderBy('id', 'desc');
+}
 
     /**
      * Define what happens when the Create operation is loaded.

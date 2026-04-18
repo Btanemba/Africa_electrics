@@ -37,12 +37,30 @@ class RoleCrudController extends CrudController
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
+    // protected function setupListOperation()
+    // {
+    //     CRUD::column('name');
+    //     CRUD::column('code');
+    //     CRUD::column('description');
+    // }
+
     protected function setupListOperation()
-    {
-        CRUD::column('name');
-        CRUD::column('code');
-        CRUD::column('description');
+{
+    $this->crud->setListView('admin.roles.list');
+
+    $query = $this->crud->query;
+
+    // Search
+    if ($search = request('search')) {
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%$search%")
+              ->orWhere('code', 'like', "%$search%")
+              ->orWhere('description', 'like', "%$search%");
+        });
     }
+
+    $query->orderBy('id', 'desc');
+}
 
     /**
      * Define what happens when the Create operation is loaded.

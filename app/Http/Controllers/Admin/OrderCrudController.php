@@ -11,6 +11,9 @@ class OrderCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+
+
 
     public function setup()
     {
@@ -21,22 +24,16 @@ class OrderCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        CRUD::column('order_number')->label('Order #');
-        CRUD::column('customer_name');
-        CRUD::column('customer_email');
-        CRUD::column('total_amount')->type('number')->prefix('$')->decimals(2);
-        CRUD::column('status')->type('select_from_array')->options([
-            'pending' => 'Pending',
-            'confirmed' => 'Confirmed',
-            'shipped' => 'Shipped',
-            'delivered' => 'Delivered',
-            'cancelled' => 'Cancelled',
-        ]);
-        CRUD::column('created_at')->label('Ordered At');
-        CRUD::column('assigned_to')->type('select')->entity('assignedTo')->attribute('full_name')->model('App\Models\User')->label('Assigned Driver');
+        $this->crud->setListView('admin.orders.list');
 
-        CRUD::orderBy('created_at', 'desc');
+        $this->crud->query->with(['assignedTo', 'items'])
+            ->orderBy('created_at', 'desc');
     }
+
+    /**
+     * Delete an order - only admins can delete
+     */
+
 
     protected function setupUpdateOperation()
     {
@@ -69,4 +66,6 @@ class OrderCrudController extends CrudController
 
         CRUD::column('order_items')->type('model_function')->function_name('getItemsHtml')->label('Order Items')->escaped(false)->limit(10000);
     }
+
+    
 }

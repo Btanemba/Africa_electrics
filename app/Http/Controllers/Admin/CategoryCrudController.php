@@ -39,15 +39,18 @@ class CategoryCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
         //CRUD::setFromDb(); // set columns from db columns.
+
+        $this->crud->setListView('admin.categories.list');
+        $this->crud->query->withCount('products');
 
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
          */
-        CRUD::column('name');
-        CRUD::column('slug');
-        CRUD::column('description');
+        CRUD::column('name')->label('Category Name');
+        CRUD::column('slug')->label('Slug');
     }
 
     /**

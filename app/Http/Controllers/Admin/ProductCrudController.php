@@ -41,6 +41,11 @@ class ProductCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
+    $this->crud->setListView('admin.products.list');
+
+    // IMPORTANT: eager load relationships
+    $this->crud->query->with(['category', 'images']);
         CRUD::column('name');
         CRUD::column('slug');
         CRUD::column([

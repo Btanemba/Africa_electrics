@@ -21,34 +21,45 @@ class JobListingCrudController extends CrudController
         CRUD::setEntityNameStrings('job listing', 'job listings');
     }
 
+    // protected function setupListOperation()
+
+
+    // {
+    //     CRUD::column('title');
+    //     CRUD::column([
+    //         'name' => 'type',
+    //         'type' => 'text',
+    //         'label' => 'Type',
+    //     ]);
+    //     CRUD::column('location');
+    //     CRUD::column([
+    //         'name' => 'deadline',
+    //         'type' => 'date',
+    //         'label' => 'Deadline',
+    //     ]);
+    //     CRUD::column([
+    //         'name' => 'is_active',
+    //         'type' => 'boolean',
+    //         'label' => 'Active',
+    //     ]);
+    //     CRUD::column([
+    //         'name' => 'applications_count',
+    //         'label' => 'Applications',
+    //         'type' => 'text',
+    //         'value' => function ($entry) {
+    //             return $entry->applications()->count();
+    //         },
+    //     ]);
+    // }
+
     protected function setupListOperation()
-    {
-        CRUD::column('title');
-        CRUD::column([
-            'name' => 'type',
-            'type' => 'text',
-            'label' => 'Type',
-        ]);
-        CRUD::column('location');
-        CRUD::column([
-            'name' => 'deadline',
-            'type' => 'date',
-            'label' => 'Deadline',
-        ]);
-        CRUD::column([
-            'name' => 'is_active',
-            'type' => 'boolean',
-            'label' => 'Active',
-        ]);
-        CRUD::column([
-            'name' => 'applications_count',
-            'label' => 'Applications',
-            'type' => 'text',
-            'value' => function ($entry) {
-                return $entry->applications()->count();
-            },
-        ]);
-    }
+{
+    $this->crud->setListView('admin.job_listings.list');
+
+   
+    $this->crud->query->withCount('applications')
+        ->orderBy('created_at', 'desc');
+}
 
     protected function setupCreateOperation()
     {
