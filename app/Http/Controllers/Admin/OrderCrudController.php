@@ -33,7 +33,30 @@ class OrderCrudController extends CrudController
     /**
      * Delete an order - only admins can delete
      */
+    protected function setupDeleteOperation()
+    {
+        // Only admins can delete orders
+        if (!backpack_auth()->user()->hasRoleCode('ADM')) {
+            $this->crud->denyAccess('delete');
+        }
+    }
 
+    /**
+     * Override destroy to handle authorization and redirect
+     */
+    public function destroy($id)
+    {
+        // Check authorization
+        if (!backpack_auth()->user()->hasRoleCode('ADM')) {
+            abort(403, 'Only admins can delete orders');
+        }
+
+        // Let Backpack handle the actual deletion
+        $this->crud->delete($id);
+
+        // Return redirect to list
+        return redirect($this->crud->route);
+    }
 
     protected function setupUpdateOperation()
     {
@@ -67,5 +90,5 @@ class OrderCrudController extends CrudController
         CRUD::column('order_items')->type('model_function')->function_name('getItemsHtml')->label('Order Items')->escaped(false)->limit(10000);
     }
 
-    
+
 }

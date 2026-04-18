@@ -14,6 +14,17 @@ class JobListingCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    protected function setupDeleteOperation()
+    {
+        $this->crud->setOperationSetting('redirect_after_save', $this->crud->route);
+    }
+
+    public function destroy($id)
+    {
+        $this->crud->delete($id);
+        return redirect($this->crud->route);
+    }
+
     public function setup()
     {
         CRUD::setModel(\App\Models\JobListing::class);
@@ -56,7 +67,7 @@ class JobListingCrudController extends CrudController
 {
     $this->crud->setListView('admin.job_listings.list');
 
-   
+
     $this->crud->query->withCount('applications')
         ->orderBy('created_at', 'desc');
 }

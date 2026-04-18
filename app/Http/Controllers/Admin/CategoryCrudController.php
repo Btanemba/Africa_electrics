@@ -134,4 +134,28 @@ class CategoryCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    /**
+     * Define what happens when the Delete operation is loaded.
+     *
+     * @see https://backpackforlaravel.com/docs/crud-operation-delete
+     * @return void
+     */
+    protected function setupDeleteOperation()
+    {
+        // Redirect to list after delete
+        $this->crud->setOperationSetting('redirect_after_save', $this->crud->route);
+    }
+
+    /**
+     * Override destroy to properly redirect to list
+     */
+    public function destroy($id)
+    {
+        // Let Backpack handle the actual deletion
+        $response = $this->crud->delete($id);
+
+        // Return redirect to list
+        return redirect($this->crud->route);
+    }
 }

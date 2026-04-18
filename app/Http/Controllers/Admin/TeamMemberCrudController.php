@@ -14,6 +14,17 @@ class TeamMemberCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
+    protected function setupDeleteOperation()
+    {
+        $this->crud->setOperationSetting('redirect_after_save', $this->crud->route);
+    }
+
+    public function destroy($id)
+    {
+        $this->crud->delete($id);
+        return redirect($this->crud->route);
+    }
+
     public function setup()
     {
         CRUD::setModel(\App\Models\TeamMember::class);

@@ -124,4 +124,15 @@ class JobApplicationCrudController extends CrudController
             ],
         ]);
     }
+
+    protected function setupDeleteOperation()
+    {
+        $this->crud->setOperationSetting('redirect_after_save', $this->crud->route);
+    }
+
+    public function destroy($id)
+    {
+        $this->crud->delete($id);
+        return redirect($this->crud->route);
+    }
 }
