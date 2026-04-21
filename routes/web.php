@@ -6,14 +6,21 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Project;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    $services = Service::visible()->ordered()->get();
+    $projects = Project::visible()->ordered()->limit(6)->get();
+
+    return view('home', compact('services', 'projects'));
 });
 
 Route::get('/projects', function () {
-    return view('projects.index');
+    $projects = Project::visible()->ordered()->get();
+
+    return view('projects.index', compact('projects'));
 })->name('projects.index');
 
 Route::get('/company/team', function () {

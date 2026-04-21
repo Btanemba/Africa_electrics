@@ -26,7 +26,7 @@
         <!-- Contact Info + Social (desktop only) -->
         <div class="hidden md:flex items-center space-x-6 text-sm text-gray-600">
             <span>Telephone:+231886720189</span>
-            <span>Email: info@africaelectric.com</span>
+            <span>Email: info@africaelectric.co</span>
             {{-- <span class="font-bold">DE | <span class="text-red-600">EN</span></span> --}}
             <div class="flex items-center space-x-3">
                 <a href="https://www.facebook.com/africaelectric" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-blue-600 transition">

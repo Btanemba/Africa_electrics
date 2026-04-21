@@ -18,6 +18,8 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('category', 'CategoryCrudController');
     Route::crud('product', 'ProductCrudController');
+    Route::crud('service', 'ServiceCrudController');
+    Route::crud('project', 'ProjectCrudController');
     Route::get('product/{productId}/delete-image/{imageId}', 'ProductCrudController@deleteImage');
     Route::crud('job-listing', 'JobListingCrudController');
     Route::crud('job-application', 'JobApplicationCrudController');

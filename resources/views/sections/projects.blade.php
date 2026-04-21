@@ -30,59 +30,18 @@
         </div>
 
         <div class="projects-grid">
-            <div class="project-card">
-                <span class="project-tag">Solar</span>
-                <img src="{{ asset('images/Sola1.PNG') }}" alt="Solar Panel Installation">
-                <div class="project-info">
-                    <h4>Solar Panel Installation</h4>
-                    <p>Residential solar system deployment</p>
+            @forelse(($projects ?? collect()) as $project)
+                <div class="project-card">
+                    <span class="project-tag">{{ $project->category_label }}</span>
+                    <img src="{{ $project->image_url ?? asset('images/Sola1.PNG') }}" alt="{{ $project->title }}">
+                    <div class="project-info">
+                        <h4>{{ $project->title }}</h4>
+                        <p>{{ $project->summary }}</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="project-card">
-                <span class="project-tag">Solar</span>
-                <img src="{{ asset('images/Sola2.PNG') }}" alt="Commercial Solar Project">
-                <div class="project-info">
-                    <h4>Commercial Solar Project</h4>
-                    <p>Large-scale solar energy solution</p>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <span class="project-tag">Industrial</span>
-                <img src="{{ asset('images/Industrial wire.PNG') }}" alt="Industrial Wiring Project">
-                <div class="project-info">
-                    <h4>Industrial Wiring Project</h4>
-                    <p>Factory electrical infrastructure setup</p>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <span class="project-tag">Industrial</span>
-                <img src="{{ asset('images/Industrial2.PNG') }}" alt="Power Distribution Setup">
-                <div class="project-info">
-                    <h4>Power Distribution Setup</h4>
-                    <p>Switchboard and distribution panel installation</p>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <span class="project-tag">Solar</span>
-                <img src="{{ asset('images/Sola1.PNG') }}" alt="Off-Grid Solar System">
-                <div class="project-info">
-                    <h4>Off-Grid Solar System</h4>
-                    <p>Remote community electrification</p>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <span class="project-tag">Industrial</span>
-                <img src="{{ asset('images/Industrial2.PNG') }}" alt="Electrical Retrofit">
-                <div class="project-info">
-                    <h4>Electrical Retrofit</h4>
-                    <p>Upgrading legacy electrical systems</p>
-                </div>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; color: #6b7280;">No projects added yet.</p>
+            @endforelse
         </div>
 
         <div class="projects-footer">

@@ -6,6 +6,10 @@
 
     <x-backpack::menu-item title="Products" icon="la la-box" :link="backpack_url('product')" />
 
+    <x-backpack::menu-item title="Services" icon="la la-cogs" :link="backpack_url('service')" />
+
+    <x-backpack::menu-item title="Projects" icon="la la-briefcase" :link="backpack_url('project')" />
+
     @php $pendingCount = \App\Models\Order::where('status', 'pending')->count(); @endphp
     <li class="nav-item">
         <a class="nav-link" href="{{ backpack_url('order') }}">

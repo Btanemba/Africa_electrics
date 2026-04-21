@@ -172,6 +172,6 @@
 
     @include('sections.projects')
 
-    {{-- @include('layouts.footer') --}}
+     @include('layouts.footer') 
 </body>
 </html>

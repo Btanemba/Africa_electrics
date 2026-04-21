@@ -39,119 +39,34 @@
             </div>
 
             <div class="projects-page-grid">
-                <div class="proj-card">
-                    <span class="proj-tag">Solar</span>
-                    <img src="{{ asset('images/Sola1.PNG') }}" alt="Solar Panel Installation">
-                    <div class="proj-card-body">
-                        <h3>Solar Panel Installation</h3>
-                        <p>Residential solar system deployment providing clean energy to homes and reducing electricity costs for families.</p>
-                        <div class="proj-meta">
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                Monrovia, Liberia
-                            </span>
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                2024
-                            </span>
+                @forelse(($projects ?? collect()) as $project)
+                    <div class="proj-card">
+                        <span class="proj-tag">{{ $project->category_label }}</span>
+                        <img src="{{ $project->image_url ?? asset('images/Sola1.PNG') }}" alt="{{ $project->title }}">
+                        <div class="proj-card-body">
+                            <h3>{{ $project->title }}</h3>
+                            <p>{{ $project->summary }}</p>
+                            @if(!empty($project->location) || !empty($project->project_year))
+                                <div class="proj-meta">
+                                    @if(!empty($project->location))
+                                        <span class="proj-meta-item">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                            {{ $project->location }}
+                                        </span>
+                                    @endif
+                                    @if(!empty($project->project_year))
+                                        <span class="proj-meta-item">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            {{ $project->project_year }}
+                                        </span>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
-                </div>
-
-                <div class="proj-card">
-                    <span class="proj-tag">Solar</span>
-                    <img src="{{ asset('images/Sola2.PNG') }}" alt="Commercial Solar Project">
-                    <div class="proj-card-body">
-                        <h3>Commercial Solar Project</h3>
-                        <p>Large-scale solar energy solution for commercial buildings, significantly cutting operational energy expenses.</p>
-                        <div class="proj-meta">
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                Monrovia, Liberia
-                            </span>
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                2024
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <span class="proj-tag">Industrial</span>
-                    <img src="{{ asset('images/Industrial wire.PNG') }}" alt="Industrial Wiring Project">
-                    <div class="proj-card-body">
-                        <h3>Industrial Wiring Project</h3>
-                        <p>Complete factory electrical infrastructure setup including high-voltage wiring and safety compliance systems.</p>
-                        <div class="proj-meta">
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                Monrovia, Liberia
-                            </span>
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                2025
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <span class="proj-tag">Industrial</span>
-                    <img src="{{ asset('images/Industrial2.PNG') }}" alt="Power Distribution Setup">
-                    <div class="proj-card-body">
-                        <h3>Power Distribution Setup</h3>
-                        <p>Switchboard and distribution panel installation for a multi-story commercial building complex.</p>
-                        <div class="proj-meta">
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                Monrovia, Liberia
-                            </span>
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                2025
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <span class="proj-tag">Solar</span>
-                    <img src="{{ asset('images/Sola1.PNG') }}" alt="Off-Grid Solar System">
-                    <div class="proj-card-body">
-                        <h3>Off-Grid Solar System</h3>
-                        <p>Remote community electrification using standalone solar systems bringing power to previously unconnected areas.</p>
-                        <div class="proj-meta">
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                Liberia
-                            </span>
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                2025
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <span class="proj-tag">Industrial</span>
-                    <img src="{{ asset('images/Industrial2.PNG') }}" alt="Electrical Retrofit">
-                    <div class="proj-card-body">
-                        <h3>Electrical Retrofit</h3>
-                        <p>Upgrading legacy electrical systems in older buildings to meet modern safety standards and efficiency requirements.</p>
-                        <div class="proj-meta">
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                Monrovia, Liberia
-                            </span>
-                            <span class="proj-meta-item">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                2026
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                @empty
+                    <p style="grid-column: 1 / -1; text-align: center; color: #6b7280;">No projects added yet.</p>
+                @endforelse
             </div>
         </div>
     </section>
