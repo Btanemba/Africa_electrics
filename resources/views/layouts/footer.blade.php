@@ -313,7 +313,7 @@
                                 <span class="ae-contact-icon">
                                     <svg class="ae-icon-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a2 2 0 011.9 1.37l1.07 3.2a2 2 0 01-.45 2.11l-1.2 1.2a16 16 0 006.36 6.36l1.2-1.2a2 2 0 012.11-.45l3.2 1.07A2 2 0 0121 18.72V22a2 2 0 01-2 2h-1C9.16 24 0 14.84 0 4V3a2 2 0 012-2h1z"/></svg>
                                 </span>
-                                <span>+1 (555) 123-4567</span>
+                                <span>+231886720189</span>
                             </li>
                             <li class="ae-contact-item">
                                 <span class="ae-contact-icon">
