@@ -10,6 +10,12 @@
 
     <x-backpack::menu-item title="Projects" icon="la la-briefcase" :link="backpack_url('project')" />
 
+    <li class="nav-item">
+        <a class="nav-link" href="https://webmail.africaelectric.co" target="_blank" rel="noopener noreferrer">
+            <i class="nav-icon la la-envelope"></i> Email
+        </a>
+    </li>
+
     @php $pendingCount = \App\Models\Order::where('status', 'pending')->count(); @endphp
     <li class="nav-item">
         <a class="nav-link" href="{{ backpack_url('order') }}">
