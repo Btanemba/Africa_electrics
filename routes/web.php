@@ -12,16 +12,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $services = Service::visible()->ordered()->get();
-    $projects = Project::visible()->ordered()->limit(6)->get();
+    $projects = Project::with('images')->visible()->ordered()->limit(6)->get();
 
     return view('home', compact('services', 'projects'));
 });
 
 Route::get('/projects', function () {
-    $projects = Project::visible()->ordered()->get();
+    $projects = Project::with('images')->visible()->ordered()->get();
 
     return view('projects.index', compact('projects'));
 })->name('projects.index');
+
+Route::get('/projects/{project}', function (Project $project) {
+    abort_unless($project->is_active, 404);
+    $project->loadMissing('images');
+
+    return view('projects.show', compact('project'));
+})->name('projects.show');
 
 Route::get('/company/team', function () {
     $teamMembers = \App\Models\TeamMember::where('is_active', true)

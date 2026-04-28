@@ -21,6 +21,7 @@ Route::group([
     Route::crud('service', 'ServiceCrudController');
     Route::crud('project', 'ProjectCrudController');
     Route::get('product/{productId}/delete-image/{imageId}', 'ProductCrudController@deleteImage');
+    Route::get('project/{projectId}/delete-image/{imageId}', 'ProjectCrudController@deleteImage');
     Route::crud('job-listing', 'JobListingCrudController');
     Route::crud('job-application', 'JobApplicationCrudController');
     Route::crud('team-member', 'TeamMemberCrudController');

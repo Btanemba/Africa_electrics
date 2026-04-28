@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class Project extends Model
@@ -50,6 +51,11 @@ class Project extends Model
         return self::CATEGORIES;
     }
 
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProjectImage::class)->orderBy('sort_order')->orderBy('id');
+    }
+
     public function getCategoryLabelAttribute(): string
     {
         return self::CATEGORIES[$this->category] ?? ucfirst((string) $this->category);
@@ -82,6 +88,14 @@ class Project extends Model
 
     public function getImageUrlAttribute(): ?string
     {
+        $image = $this->relationLoaded('images')
+            ? $this->images->first()
+            : $this->images()->first();
+
+        if ($image?->image_path) {
+            return asset('storage/' . $image->image_path);
+        }
+
         if (! $this->image) {
             return null;
         }

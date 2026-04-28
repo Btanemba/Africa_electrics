@@ -24,39 +24,11 @@ class ServiceCrudController extends CrudController
 
     protected function setupListOperation(): void
     {
+        $this->crud->setListView('admin.services.list');
         $this->crud->query->ordered();
 
-        CRUD::addColumn([
-            'name' => 'title',
-            'type' => 'text',
-            'label' => 'Title',
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'icon',
-            'type' => 'select_from_array',
-            'label' => 'Icon',
-            'options' => Service::iconOptions(),
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'description',
-            'type' => 'textarea',
-            'label' => 'Description',
-            'limit' => 120,
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'sort_order',
-            'type' => 'number',
-            'label' => 'Order',
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'is_active',
-            'type' => 'boolean',
-            'label' => 'Active',
-        ]);
+        CRUD::column('title')->label('Service Title');
+        CRUD::column('icon')->label('Icon');
     }
 
     protected function setupCreateOperation(): void

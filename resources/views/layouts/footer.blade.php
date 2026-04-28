@@ -250,7 +250,7 @@
                 <div class="ae-map-header">
                     <h4 class="ae-subtitle">Find Us</h4>
                     <a
-                        href="https://maps.google.com/?q=Monrovia, Liberia"
+                            href="https://maps.app.goo.gl/wa2XLiqACfeyV32u9?g_st=aw"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="ae-map-link">
@@ -262,7 +262,7 @@
                 <div class="ae-map-frame-wrap">
                     <iframe
                         title="Africa Electrics Location"
-                        src="https://www.google.com/maps?q=Monrovia%2C%20Liberia&output=embed"
+                        src="https://www.google.com/maps?q=6.2640698%2C-10.7127327&z=16&output=embed"
                         class="ae-map-frame"
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"

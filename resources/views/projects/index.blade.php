@@ -40,7 +40,7 @@
 
             <div class="projects-page-grid">
                 @forelse(($projects ?? collect()) as $project)
-                    <div class="proj-card">
+                    <a href="{{ route('projects.show', $project) }}" class="proj-card" style="text-decoration:none;color:inherit;">
                         <span class="proj-tag">{{ $project->category_label }}</span>
                         <img src="{{ $project->image_url ?? asset('images/Sola1.PNG') }}" alt="{{ $project->title }}">
                         <div class="proj-card-body">
@@ -63,7 +63,7 @@
                                 </div>
                             @endif
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <p style="grid-column: 1 / -1; text-align: center; color: #6b7280;">No projects added yet.</p>
                 @endforelse
