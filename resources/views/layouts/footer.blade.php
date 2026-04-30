@@ -442,7 +442,7 @@
                             <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="{{ url('/#about') }}">About</a></li>
                             <li><a href="{{ url('/#services') }}">Services</a></li>
-                            <li><a href="{{ route('backpack.auth.login') }}">Admin</a></li>
+                            <li><a href="{{ route('backpack.auth.login') }}" target="_blank">Admin</a></li>
                         </ul>
                     </div>
 
