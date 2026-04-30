@@ -16,12 +16,6 @@ class Authenticate extends Middleware
             return null;
         }
 
-        // If the user is trying to access an admin route, redirect to admin login
-        if ($request->is('admin/*')) {
-            return route('backpack.auth.login');
-        }
-
-        // Otherwise redirect to the standard login
-        return route('login');
+        return route('backpack.auth.login');
     }
 }
