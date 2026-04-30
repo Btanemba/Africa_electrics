@@ -121,8 +121,8 @@
                     </ul>
                 </li>
 
-                <li class="cursor-pointer hover:text-gray-200 transition flex items-center gap-1">Development electronics <span class="text-xs">▼</span></li>
-                <li class="cursor-pointer hover:text-gray-200 transition">Research and development</li>
+                {{-- <li class="cursor-pointer hover:text-gray-200 transition flex items-center gap-1">Development electronics <span class="text-xs">▼</span></li>
+                <li class="cursor-pointer hover:text-gray-200 transition">Research and development</li> --}}
                 {{-- <li class="cursor-pointer hover:text-gray-200 transition">Downloads</li> --}}
                 <li>
                     <a href="{{ route('track-order') }}" class="hover:text-gray-200 transition flex items-center gap-1">
@@ -169,10 +169,10 @@
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2"><a href="{{ route('team') }}">Team</a></li>
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2"><a href="{{ route('jobs') }}">Jobs</a></li>
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2"><a href="{{ route('products.index') }}">Products</a></li>
-                <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2">Switchboard construction</li>
+                {{-- <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2">Switchboard construction</li>
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2">Development electronics</li>
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2">Research and development</li>
-                <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2">Downloads</li>
+                <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2">Downloads</li> --}}
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2"><a href="{{ route('cart.index') }}">Cart @if(count(session('cart', [])) > 0)({{ count(session('cart', [])) }})@endif</a></li>
                 <li class="cursor-pointer hover:text-gray-200 transition px-4 py-2"><a href="{{ route('track-order') }}">Track Order</a></li>
             </ul>

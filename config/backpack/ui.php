@@ -63,7 +63,7 @@ return [
     'home_link' => '',
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo' => '<b>Back</b>pack',
+    'project_logo' => '<img src="/images/logo.jpg" alt="Africa Electric" style="height:40px; width:auto; object-fit:contain; border-radius:50%; background:#fff; padding:3px;">',
 
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,

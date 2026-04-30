@@ -100,7 +100,7 @@
     </div>
 
     <!-- About / Company Overview -->
-    <section class="about-section">
+    <section id="about" class="about-section">
         <div class="about-container">
             <div class="about-grid">
                 <div>
@@ -172,6 +172,6 @@
 
     @include('sections.projects')
 
-     @include('layouts.footer') 
+     @include('layouts.footer')
 </body>
 </html>

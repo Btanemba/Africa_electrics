@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\OrderTrackingController;
@@ -22,6 +23,10 @@ Route::get('/projects', function () {
 
     return view('projects.index', compact('projects'));
 })->name('projects.index');
+
+Route::view('/faq', 'faq')->name('faq');
+Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
+Route::view('/terms-of-service', 'terms-of-service')->name('terms-of-service');
 
 Route::get('/projects/{project}', function (Project $project) {
     abort_unless($project->is_active, 404);
@@ -59,6 +64,7 @@ Route::get('/order/confirmation/{orderNumber}', [CheckoutController::class, 'con
 // Order Tracking
 Route::get('/track-order', [OrderTrackingController::class, 'index'])->name('track-order');
 Route::post('/track-order', [OrderTrackingController::class, 'track'])->name('track-order.search');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Override Backpack register routes with custom controller
 Route::group([

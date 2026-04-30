@@ -186,6 +186,157 @@
         font-size: 0.75rem;
     }
 
+    .ae-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 24, 39, 0.65);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 1rem;
+    }
+
+    .ae-modal-overlay[aria-hidden="false"] {
+        display: flex;
+    }
+
+    .ae-modal {
+        width: 100%;
+        max-width: 34rem;
+        border-radius: 0.9rem;
+        background: #f8fafc;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+        max-height: calc(100vh - 2rem);
+        overflow: auto;
+    }
+
+    .ae-modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .ae-modal-title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .ae-modal-close {
+        border: 0;
+        background: transparent;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: #4b5563;
+        cursor: pointer;
+    }
+
+    .ae-modal-body {
+        padding: 1rem 1.25rem 1.25rem;
+    }
+
+    .ae-form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+    }
+
+    .ae-form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .ae-form-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .ae-form-control {
+        width: 100%;
+        border: 1px solid #d1d5db;
+        border-radius: 0.6rem;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.95rem;
+        color: #111827;
+        background: #fff;
+    }
+
+    .ae-form-control:focus {
+        outline: 2px solid #0f766e;
+        outline-offset: 1px;
+        border-color: #0f766e;
+    }
+
+    .ae-form-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 0.75rem;
+    }
+
+    .ae-btn-submit {
+        border: 0;
+        border-radius: 0.6rem;
+        background: #0f766e;
+        color: #fff;
+        padding: 0.65rem 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .ae-btn-submit:hover {
+        background: #115e59;
+    }
+
+    .ae-form-note {
+        margin: 0 0 0.75rem;
+        font-size: 0.875rem;
+        color: #4b5563;
+    }
+
+    .ae-form-feedback {
+        margin-top: 0.75rem;
+        font-size: 0.875rem;
+        color: #065f46;
+        display: none;
+    }
+
+    .ae-form-feedback.is-visible {
+        display: block;
+    }
+
+    .ae-form-alert {
+        margin: 0 0 0.9rem;
+        border-radius: 0.6rem;
+        padding: 0.65rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .ae-form-alert-success {
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #065f46;
+    }
+
+    .ae-form-alert-error {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+    }
+
+    .ae-field-error {
+        color: #b91c1c;
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
     @media (min-width: 640px) {
         .ae-footer-container {
             padding-left: 1.5rem;
@@ -209,6 +360,10 @@
         .ae-copyright,
         .ae-bottom-links {
             font-size: 0.875rem;
+        }
+
+        .ae-form-grid-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
@@ -284,17 +439,18 @@
                         <h4 class="ae-list-title">Quick Links</h4>
                         <ul class="ae-list">
                             <!-- <li><a href="{{ route('dashboard') }}">Dashboard</a></li> -->
-                            <li><a href="/">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Services</a></li>
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('/#about') }}">About</a></li>
+                            <li><a href="{{ url('/#services') }}">Services</a></li>
+                            <li><a href="{{ route('backpack.auth.login') }}">Admin</a></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 class="ae-list-title">Support</h4>
                         <ul class="ae-list">
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#" id="aeOpenContactModal">Contact Us</a></li>
+                            <li><a href="{{ route('faq') }}">FAQ</a></li>
                             <!-- <li><a href="#">Documentation</a></li> -->
                             <!-- <li><a href="#">Blog</a></li> -->
                         </ul>
@@ -330,14 +486,130 @@
         <div class="ae-footer-bottom">
             <div class="ae-footer-bottom-inner">
                 <p class="ae-copyright">
-                    &copy; {{ date('Y') }} Africa Electrics. All rights reserved.
+                    &copy; {{ date('Y') }} Africa Electric. All rights reserved.
                 </p>
                 <div class="ae-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Sitemap</a>
+                    <a href="{{ route('privacy-policy') }}">Privacy Policy</a>
+                    <a href="{{ route('terms-of-service') }}">Terms of Service</a>
+                    {{-- <a href="#">Sitemap</a> --}}
                 </div>
             </div>
         </div>
     </div>
 </footer>
+
+<div class="ae-modal-overlay" id="aeContactModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="aeContactModalTitle">
+    <div class="ae-modal">
+        <div class="ae-modal-head">
+            <h3 class="ae-modal-title" id="aeContactModalTitle">Contact Us</h3>
+            <button type="button" class="ae-modal-close" id="aeCloseContactModal" aria-label="Close contact form">&times;</button>
+        </div>
+        <div class="ae-modal-body">
+            <p class="ae-form-note">Fill in your details and message. We will get back to you shortly.</p>
+
+            <form id="aeContactForm" method="POST" action="{{ route('contact.submit') }}" novalidate>
+                @csrf
+
+                @if (session('contact_success'))
+                    <p class="ae-form-alert ae-form-alert-success">{{ session('contact_success') }}</p>
+                @endif
+
+                @if ($errors->hasAny(['first_name', 'last_name', 'phone', 'message']))
+                    <p class="ae-form-alert ae-form-alert-error">Please correct the highlighted fields and try again.</p>
+                @endif
+
+                <div class="ae-form-grid ae-form-grid-2">
+                    <div class="ae-form-field">
+                        <label for="aeFirstName" class="ae-form-label">First Name</label>
+                        <input type="text" id="aeFirstName" name="first_name" class="ae-form-control" autocomplete="given-name" value="{{ old('first_name') }}" required>
+                        @error('first_name')
+                            <p class="ae-field-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="ae-form-field">
+                        <label for="aeLastName" class="ae-form-label">Last Name</label>
+                        <input type="text" id="aeLastName" name="last_name" class="ae-form-control" autocomplete="family-name" value="{{ old('last_name') }}" required>
+                        @error('last_name')
+                            <p class="ae-field-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="ae-form-grid" style="margin-top: 0.9rem;">
+                    <div class="ae-form-field">
+                        <label for="aePhone" class="ae-form-label">Phone Number</label>
+                        <input type="tel" id="aePhone" name="phone" class="ae-form-control" autocomplete="tel" placeholder="+231..." value="{{ old('phone') }}" required>
+                        @error('phone')
+                            <p class="ae-field-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="ae-form-field">
+                        <label for="aeMessage" class="ae-form-label">Message</label>
+                        <textarea id="aeMessage" name="message" rows="4" class="ae-form-control" required>{{ old('message') }}</textarea>
+                        @error('message')
+                            <p class="ae-field-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="ae-form-actions">
+                    <button type="submit" class="ae-btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const openBtn = document.getElementById('aeOpenContactModal');
+        const closeBtn = document.getElementById('aeCloseContactModal');
+        const overlay = document.getElementById('aeContactModal');
+        const firstInput = document.getElementById('aeFirstName');
+
+        if (!openBtn || !closeBtn || !overlay || !firstInput) {
+            return;
+        }
+
+        function openModal(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            firstInput.focus();
+        }
+
+        function closeModal() {
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+
+        overlay.addEventListener('click', function (event) {
+            if (event.target === overlay) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && overlay.getAttribute('aria-hidden') === 'false') {
+                closeModal();
+            }
+        });
+
+        const shouldOpenOnLoad = @json(
+            session('contact_success')
+            || $errors->has('first_name')
+            || $errors->has('last_name')
+            || $errors->has('phone')
+            || $errors->has('message')
+        );
+
+        if (shouldOpenOnLoad) {
+            openModal();
+        }
+    })();
+</script>
